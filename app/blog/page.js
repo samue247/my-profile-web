@@ -84,6 +84,17 @@ export default function Blog() {
         /* NAV */
         nav {
           display: flex;
+          position: sticky;
+          top: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          z-index: 1000;
+          color: #1a1a1a;
+          background: #f7f6f4;
+          body {
+  padding-top: 70px; /* match your navbar height */
+}
           justify-content: space-between;
           align-items: center;
           padding: 2rem 4rem;

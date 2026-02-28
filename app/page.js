@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import profilePic from "./images/profile.jpeg";
+
 export default function Home() {
   const [visible, setVisible] = useState(false);
 
@@ -43,6 +45,17 @@ export default function Home() {
         /* NAV */
         nav {
           display: flex;
+          position: sticky;
+          top: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          z-index: 1000;
+          color: #1a1a1a;
+          background: #f7f6f4;
+          body {
+  padding-top: 70px; /* match your navbar height */
+}
           justify-content: space-between;
           align-items: center;
           padding: 2rem 4rem;
@@ -381,7 +394,7 @@ export default function Home() {
         {/* HERO */}
         <section className="hero">
           <div>
-            <p className="hero-tag">Frontend Developer &amp; CSC Student</p>
+            <p className="hero-tag">Frontend Developer &amp; Computing Student</p>
             <h1 className="hero-name">
               Wamiri<span>X</span>
             </h1>
@@ -430,9 +443,9 @@ export default function Home() {
           <div className="photo-wrap">
             <div className="photo-frame">
               <div className="photo-placeholder">
-                <img src="C:\Users\user\my-profile\app\images\WhatsApp Image 2026-02-25 at 00.18.52.jpeg"
+                <img src={profilePic.src}
                 alt="Profile Picture" />  
-                <p>Your Photo</p>
+                <p>My Photo</p>
               </div>
             </div>
             <div className="photo-accent" />
