@@ -8,14 +8,26 @@ export default function Portfolio() {
     setTimeout(() => setVisible(true), 100);
   }, []);
 
-  const featured = {
+  const featured = [
+  {
     name: "Newbnet",
     description: "The Decentralized Learning for Web3",
     detail:
       "A next-generation learning platform built for the Web3 ecosystem. Newbnet empowers learners with decentralized, open-access education — bridging the gap between traditional learning and the blockchain world.",
     github: "https://github.com/Josh565565/newb-bot-backend",
+    live: "",
     tags: ["Web3", "Decentralized", "Education"],
-  };
+  },
+  {
+    name: "TM Ventures",
+    description: "A user-friendly POS website managing sales, inventory & more",
+    detail:
+      "A website that offers seamless payment processing, real-time inventory tracking and insightful sales reports, all designed to streamline operations and boost sales. With intuitive navigation and mobile responsiveness, managing your business is easier than ever.",
+    github: "https://github.com/samue247/tm-ventures",
+    live: "https://tm-ventures.netlify.app",
+    tags: ["POSsystem", "Ecommerce", "SalesTracking"],
+  },
+];
 
   const placeholders = [
     {
@@ -449,33 +461,39 @@ export default function Portfolio() {
         </div>
 
         {/* FEATURED PROJECT */}
-        <section className="featured-section">
-          <p className="section-label">Featured Project</p>
-          <div className="featured-card">
-            <div className="featured-visual">
-              <div className="featured-visual-label">Newbnet</div>
-            </div>
-            <div className="featured-content">
-              <div>
-                <div className="featured-number">01</div>
-                <h2 className="featured-name">{featured.name}</h2>
-                <p className="featured-tagline">{featured.description}</p>
-                <p className="featured-detail">{featured.detail}</p>
-                <div className="tags">
-                  {featured.tags.map((tag) => (
-                    <span key={tag} className="tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="project-links">
-                <a href={featured.github} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  ⌥ View on GitHub
-                </a>
-              </div>
-            </div>
+<section className="featured-section">
+  <p className="section-label">Featured Projects</p>
+  {featured.map((project, i) => (
+    <div className="featured-card" key={i} style={{ marginBottom: "1px" }}>
+      <div className="featured-visual">
+        <div className="featured-visual-label">{project.name}</div>
+      </div>
+      <div className="featured-content">
+        <div>
+          <div className="featured-number">0{i + 1}</div>
+          <h2 className="featured-name">{project.name}</h2>
+          <p className="featured-tagline">{project.description}</p>
+          <p className="featured-detail">{project.detail}</p>
+          <div className="tags">
+            {project.tags.map((tag) => (
+              <span key={tag} className="tag">{tag}</span>
+            ))}
           </div>
-        </section>
-
+        </div>
+        <div className="project-links">
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            ⌥ View on GitHub
+          </a>
+          {project.live && (
+            <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+              ↗ Live Site
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
         {/* GRID */}
         <section className="grid-section">
           <p className="section-label">More Projects</p>
