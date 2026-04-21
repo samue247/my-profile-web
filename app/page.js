@@ -11,7 +11,7 @@ export default function Home() {
   }, []);
 
   const skills = [
-    { category: "Languages", items: ["HTML", "CSS", "JavaScript"] },
+    { category: "Languages", items: ["HTML", "CSS", "JavaScript","C++", "Python","C language"] },
     { category: "Frontend", items: ["React", "Next.js", "Responsive Design"] },
     { category: "Database", items: ["SQL", "Database Management"] },
     { category: "Tools", items: ["Git", "GitHub", "VS Code"] },

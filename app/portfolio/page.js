@@ -27,6 +27,15 @@ export default function Portfolio() {
     live: "https://tm-ventures.netlify.app",
     tags: ["POSsystem", "Ecommerce", "SalesTracking"],
   },
+  {
+    name: "TM-Care Health Center",
+    description: "A comprehensive healthcare management system",
+    detail:
+      "A healthcare management system that streamlines patient care, appointment scheduling, real-time staff notifications and medical record management. With a user-friendly interface and robust features, it enhances efficiency for healthcare providers while ensuring a seamless experience for patients.",
+    github: "https://github.com/samue247/health-center",
+    live: "",
+    tags: ["Healthcare", "Management", "MedicalRecords"],
+  }
 ];
 
   const placeholders = [
