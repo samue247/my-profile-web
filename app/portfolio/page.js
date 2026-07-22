@@ -35,6 +35,24 @@ export default function Portfolio() {
     github: "https://github.com/samue247/health-center",
     live: "",
     tags: ["Healthcare", "Management", "MedicalRecords"],
+  },
+  {
+    name: "StudyPal",
+    description: "A collaborative learning platform for students",
+    detail:
+      "StudyPal is an AI-powered voice study companion built specifically for African students who work while they study, live with inconsistent internet, and have no support structure keeping them on track. It doesn't just deliver content — it takes your scattered WhatsApp notes and PDFs, structures them into lessons, reads them to you by voice, quizzes you, tracks your progress, and adapts to your real life.",
+    github: "https://github.com/zion-robotics/studypal-your-ai-study-companion",
+    live: "https://studypal-your-ai-study-companion.vercel.app/",
+    tags: ["Education", "Collaboration", "Learning"],
+  },
+  {
+    name: "EcoConnect",
+    description: "A platform connecting informal traders, unemployed youth and financila services.",
+    detail:
+      "Ecoconnect is a platform that connects informal traders, unemployed youth, and financial services. It provides a space for these groups to interact, share resources, and access financial support, fostering economic growth and community development.",
+    github: "https://github.com/zion-robotics/ecoconnect-intelligent-economy",  
+    live: "https://ecoconnect-intelligent-economy.vercel.app/",
+    tags: ["Sustainability", "Community", "Environment"],
   }
 ];
 
