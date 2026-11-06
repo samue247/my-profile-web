@@ -53,6 +53,22 @@ export default function Portfolio() {
     github: "https://github.com/zion-robotics/ecoconnect-intelligent-economy",  
     live: "https://ecoconnect-intelligent-economy.vercel.app/",
     tags: ["Sustainability", "Community", "Environment"],
+  },
+  {
+    name: "FuneralHome",
+    description: "A landing page for a funeral home business.",
+    detail: "A modern landing page for a funeral home business, designed to provide a respectful and informative experience for families during difficult times.",
+    github: "https://github.com/samue247/funeral-home",
+    live: "https://funeral-home-dusky.vercel.app/",
+    tags: ["Business", "LandingPage", "FuneralServices"],
+  },
+  {
+    name: "QR Code generator",
+    description: "A fancy made genearator of QR code",
+    detail: "",
+    github: "",
+    live: "",
+    tags: [""],
   }
 ];
 
