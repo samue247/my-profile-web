@@ -3,298 +3,236 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Journey Learning JavaScript: Mistakes, Breakthroughs and Lessons</title>
+<title>My Journey Learning JavaScript: Mistakes, Breakthroughs and Lessons | WamiriX</title>
 <meta name="description" content="From confusing callbacks to finally understanding async/await — an honest account of learning JavaScript as a self-driven computer science student in Nigeria.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#EEF1FB; --paper:#FFFFFF; --ink:#1B1F3B; --soft:#4A4F72;
-  --js:#F7DF1E; --bug:#E5484D; --mint:#2FBF8F; --line:#CDD3EE;
-  --head:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
-  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f7f6f4;--ink:#1a1a1a;--mid:#555;--soft:#777;--rule:#e0ddd8;--green:#2d6a4f;--bad:#a8402f;
+--serif:"Cormorant Garamond",Georgia,serif;--sans:"DM Sans",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:1.06rem;line-height:1.85}
+.page{opacity:0;transform:translateY(16px);animation:in .8s ease .1s forwards}
+@keyframes in{to{opacity:1;transform:none}}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+nav{display:flex;position:sticky;top:0;z-index:1000;justify-content:space-between;align-items:center;padding:2rem 4rem;background:var(--bg);border-bottom:1px solid var(--rule)}
+.logo{font-family:var(--serif);font-size:1.4rem;font-weight:600;letter-spacing:.05em;color:var(--ink);text-decoration:none}
+.links{display:flex;gap:2.5rem;list-style:none}
+.links a{text-decoration:none;color:var(--mid);font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.links a:hover,.links a.on{color:var(--ink)}
+
+.wrap{max-width:40rem;margin:0 auto;padding:0 1.5rem}
+.back{display:inline-block;margin:3rem 0 0;font-size:.85rem;color:var(--soft);text-decoration:none}
+.back:hover{color:var(--ink)}
+.head{padding:2.2rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+.tag{font-size:.78rem;color:var(--green);font-weight:500;margin-bottom:1.1rem}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,6.5vw,3.8rem);line-height:1.08;color:#111}
+.dek{font-size:1.12rem;color:var(--mid);margin:1.4rem 0 1.6rem}
+.meta{font-size:.82rem;color:var(--soft)}
+.sketch{display:block;width:100%;height:auto;margin:2.5rem 0}
+
+article{padding-bottom:2rem}
+article p{margin-bottom:1.5rem}
+article h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,4.5vw,2.3rem);line-height:1.15;margin:3.5rem 0 1.2rem;color:#111}
+h3{font-family:var(--serif);font-weight:600;font-size:1.45rem;line-height:1.2;margin:2.8rem 0 .8rem;padding-top:1.6rem;border-top:1px solid var(--rule);color:#111}
+code{font-family:var(--mono);font-size:.84em;background:#ecebe7;padding:.1em .35em;border-radius:3px}
+pre{font-family:var(--mono);font-size:.84rem;line-height:1.7;background:#fff;border:1px solid var(--rule);padding:1rem 1.2rem;margin:1.2rem 0 1.4rem;overflow-x:auto;color:#222}
+pre .c{color:#8b8b8b}pre .bad{color:var(--bad)}pre .ok{color:var(--green)}
+.fix{padding-left:1rem;border-left:2px solid var(--green);color:var(--mid);margin-bottom:1.5rem}
+.pull{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.6rem,4vw,2.1rem);line-height:1.3;margin:3rem 0;padding:1.6rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);color:#111}
+.cap{font-size:.8rem;color:var(--soft);text-align:center;margin-top:-1.6rem;margin-bottom:2rem}
+
+ol.lessons{list-style:none;margin:1rem 0 2.5rem;border-top:1px solid var(--rule)}
+ol.lessons li{padding:1.1rem 0;border-bottom:1px solid var(--rule)}
+ol.lessons b{font-family:var(--serif);font-weight:600;font-size:1.25rem;display:block;line-height:1.3;color:#111}
+.end{margin:3.5rem 0 1rem}
+
+footer{border-top:1px solid var(--rule);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;margin-top:3rem}
+footer p{font-size:.78rem;color:#aaa;letter-spacing:.05em}
+@media (max-width:768px){
+ nav{padding:1.5rem}.links{gap:1.5rem}
+ footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.15rem;line-height:1.75}
-.wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
-h1,h2,h3{font-family:var(--head);line-height:1.1;margin:0}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-
-/* hero */
-.hero{padding:3rem 0 2rem}
-.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.02em}
-.hero h1 span{background:var(--js);padding:0 .15em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-.dek{font-size:1.25rem;color:var(--soft);margin:1.2rem 0 1.5rem;max-width:36rem}
-.by{font-family:var(--head);font-weight:600;font-size:.95rem;color:var(--soft)}
-.stage{margin:2rem 0 0;position:relative}
-.stage svg{width:100%;height:auto;display:block}
-.wob{transform-origin:200px 150px;animation:wob 2.4s ease-in-out 3}
-@keyframes wob{0%,100%{transform:rotate(0)}25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
-
-/* article */
-article p{margin:0 0 1.3rem}
-article h2{font-size:clamp(1.6rem,4.5vw,2.2rem);font-weight:800;margin:3.2rem 0 1rem;letter-spacing:-.01em}
-.dropcap::first-letter{font-family:var(--head);font-weight:800;font-size:3.6rem;float:left;line-height:.85;padding:.35rem .6rem 0 0;color:var(--bug)}
-code{font-family:var(--mono);font-size:.88em;background:#DDE2F6;padding:.1em .35em;border-radius:5px}
-pre{background:var(--ink);color:#E9ECFF;font-family:var(--mono);font-size:.88rem;line-height:1.6;padding:1rem 1.1rem;border-radius:10px;overflow-x:auto;margin:0 0 1rem}
-pre .c{color:#8E95C9}
-pre .bad{color:#FF8A8F}
-pre .ok{color:#7BE0BC}
-
-/* bug report cards: the recurring structure of the post */
-.bug{background:var(--paper);border:2px solid var(--ink);border-radius:14px;margin:2rem 0;box-shadow:6px 6px 0 var(--ink);overflow:hidden}
-.bug header{display:flex;align-items:center;gap:.8rem;background:var(--bug);color:#fff;padding:.6rem 1rem;font-family:var(--head);font-weight:800}
-.bug header small{font-family:var(--mono);font-weight:400;opacity:.9;margin-left:auto;font-size:.8rem}
-.bug .in{padding:1rem 1.1rem 1.1rem}
-.bug svg{width:100%;height:auto;display:block;margin-bottom:.8rem;border-radius:8px;background:#F6F7FE}
-.bug dl{margin:0}
-.bug dt{font-family:var(--head);font-weight:800;font-size:.95rem;margin-top:.7rem}
-.bug dd{margin:0;font-size:1.02rem;line-height:1.6}
-
-.quote{border-left:6px solid var(--js);padding:.4rem 0 .4rem 1.1rem;font-size:1.3rem;font-style:italic;margin:2rem 0}
-.fig{margin:2rem 0}
-.fig svg{width:100%;height:auto;display:block}
-.fig figcaption{font-size:.95rem;color:var(--soft);text-align:center}
-
-ul.lessons{list-style:none;padding:0;margin:0 0 2rem}
-ul.lessons li{background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:.8rem 1rem;margin-bottom:.8rem}
-ul.lessons strong{font-family:var(--head);font-size:1.05rem}
-.end{background:var(--js);border:2px solid var(--ink);border-radius:14px;padding:1.4rem 1.4rem 1.1rem;margin:3rem 0}
-.end h2{margin:0 0 .6rem;font-size:1.6rem}
-footer{padding:1rem 0 3rem;color:var(--soft);font-size:.95rem}
-@media (prefers-reduced-motion:reduce){.wob{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.page{animation:none;opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
-<header class="hero">
-  <h1>My Journey Learning <span>JavaScript</span>: Mistakes, Breakthroughs and Lessons</h1>
-  <p class="dek">From confusing callbacks to finally understanding async/await — an honest account of learning JavaScript as a self-driven computer science student in Nigeria.</p>
-  <div class="by">By WamiriX · Computing Science, Federal University of Agriculture Abeokuta</div>
+<nav>
+  <a href="/" class="logo">WamiriX</a>
+  <ul class="links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/portfolio">Portfolio</a></li>
+    <li><a href="/blog" class="on">Blog</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <div class="stage">
-    <svg viewBox="0 0 400 260" role="img" aria-label="A cartoon bug sitting on a laptop, shouting Uncaught TypeError">
-      <rect x="40" y="170" width="320" height="16" rx="6" fill="#1B1F3B"/>
-      <rect x="70" y="60" width="260" height="116" rx="10" fill="#1B1F3B"/>
-      <rect x="80" y="70" width="240" height="96" rx="6" fill="#2A2F5C"/>
-      <text x="92" y="92" font-family="monospace" font-size="11" fill="#7BE0BC">&gt; console.log(user.name)</text>
-      <text x="92" y="112" font-family="monospace" font-size="11" fill="#FF8A8F">Uncaught TypeError:</text>
-      <text x="92" y="128" font-family="monospace" font-size="11" fill="#FF8A8F">Cannot read properties</text>
-      <text x="92" y="144" font-family="monospace" font-size="11" fill="#FF8A8F">of undefined</text>
-      <g class="wob">
-        <g stroke="#1B1F3B" stroke-width="4" stroke-linecap="round">
-          <path d="M170 150 L150 132M170 160 L146 162M175 170 L155 186M230 150 L250 132M230 160 L254 162M225 170 L245 186" fill="none"/>
-          <path d="M190 112 L180 94M210 112 L220 94" fill="none"/>
-        </g>
-        <ellipse cx="200" cy="150" rx="38" ry="32" fill="#E5484D" stroke="#1B1F3B" stroke-width="4"/>
-        <circle cx="200" cy="116" r="20" fill="#E5484D" stroke="#1B1F3B" stroke-width="4"/>
-        <circle cx="193" cy="114" r="6" fill="#fff"/><circle cx="207" cy="114" r="6" fill="#fff"/>
-        <circle cx="195" cy="115" r="2.5" fill="#1B1F3B"/><circle cx="205" cy="115" r="2.5" fill="#1B1F3B"/>
-        <path d="M193 126 Q200 132 207 126" stroke="#1B1F3B" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <circle cx="186" cy="146" r="5" fill="#1B1F3B" opacity=".25"/><circle cx="214" cy="156" r="5" fill="#1B1F3B" opacity=".25"/>
-      </g>
-      <path d="M262 52 h96 a8 8 0 0 1 8 8 v34 a8 8 0 0 1 -8 8 h-60 l-14 14 v-14 h-22 a8 8 0 0 1 -8 -8 v-34 a8 8 0 0 1 8 -8z" fill="#F7DF1E" stroke="#1B1F3B" stroke-width="3"/>
-      <text x="274" y="76" font-family="sans-serif" font-weight="800" font-size="13" fill="#1B1F3B">Hello, I am</text>
-      <text x="274" y="94" font-family="sans-serif" font-weight="800" font-size="13" fill="#1B1F3B">your bug. Hi.</text>
-    </svg>
-  </div>
-</header>
+<main class="wrap">
+  <a class="back" href="/blog">&larr; Back to all writing</a>
 
-<article>
+  <header class="head">
+    <p class="tag">Personal</p>
+    <h1>My Journey Learning JavaScript: Mistakes, Breakthroughs and Lessons</h1>
+    <p class="dek">From confusing callbacks to finally understanding async/await — an honest account of learning JavaScript as a self-driven computer science student in Nigeria.</p>
+    <p class="meta">WamiriX, November 2026. 6 min read.</p>
+  </header>
 
-<p class="dropcap">Three years ago, around 2023, I knew exactly two things about building websites: HTML and CSS. And I will be honest with you, I only liked one of them. HTML made sense to me. You put things in boxes and the boxes behaved. CSS, on the other hand, asked me to be creative with design, and creativity with colours and spacing has never been my strongest muscle.</p>
+  <svg class="sketch" viewBox="0 0 520 190" role="img" aria-label="A hand-drawn bug standing on a line of code, looking confused">
+    <g fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 160 H500" stroke="#e0ddd8" stroke-width="1.5"/>
+      <path d="M40 160 h60 M112 160 h30 M154 160 h90 M360 160 h70 M442 160 h40" stroke="#1a1a1a" stroke-width="1.2" opacity=".35"/>
+      <ellipse cx="260" cy="118" rx="38" ry="30"/>
+      <path d="M260 88 V148"/>
+      <circle cx="260" cy="72" r="17"/>
+      <path d="M250 58 Q244 40 232 34 M270 58 Q276 40 288 34"/>
+      <circle cx="254" cy="70" r="2.4" fill="#1a1a1a"/><circle cx="267" cy="70" r="2.4" fill="#1a1a1a"/>
+      <path d="M254 80 q6 -4 12 0"/>
+      <path d="M226 110 L200 98 M224 122 L196 124 M230 138 L206 154 M294 110 L320 98 M296 122 L324 124 M290 138 L314 154"/>
+      <path d="M248 112 a6 6 0 1 1 0.1 0 M272 128 a5 5 0 1 1 0.1 0" stroke="#2d6a4f"/>
+    </g>
+    <g font-family="DM Sans, sans-serif" font-size="14" fill="#555">
+      <text x="338" y="58" font-style="italic">"...but it worked yesterday."</text>
+    </g>
+    <path d="M334 62 q-14 6 -24 14" fill="none" stroke="#555" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
 
-<p>So when I discovered that JavaScript could make a page actually <em>do</em> things, respond, calculate, change, remember, I was hooked. What I did not know was how often it would also make me want to close my laptop and go and stare at a wall.</p>
+  <article>
+    <p>Three years ago, around 2023, I knew exactly two things about building websites: HTML and CSS. And I will be honest, I only liked one of them. HTML made sense to me. You put things in boxes and the boxes behaved. CSS asked me to be creative with design, and that has never been my strongest muscle.</p>
 
-<p>This is the story of that journey: the learning, the bugs that humbled me, and the one conversation that made things click. If you are a self-driven student somewhere in Nigeria wondering whether you are the only one struggling, you are not.</p>
+    <p>So when I found out that JavaScript could make a page actually <em>do</em> things, respond, calculate, remember, I was hooked. What I did not know was how often it would also make me want to close my laptop and stare at a wall.</p>
 
-<h2>How I actually learned</h2>
+    <p>This is the story of that journey: how I learned, the bugs that humbled me, and the one conversation that made things click. If you are a self-driven student somewhere in Nigeria wondering whether you are the only one struggling, you are not.</p>
 
-<p>I started with YouTube, like most of us. Then I moved to online documentation, which felt like reading a foreign language at first and then, slowly, like a map. Along the way I had real people in my corner too: mentors who sat with me physically, looked at my screen and said, “No, that is not what the code is doing.”</p>
+    <h2>How I actually learned</h2>
 
-<p>Mostly, though, it was commitment and discipline. JavaScript is frustrating, and motivation does not survive frustration. Showing up on the days you do not feel like it does. Projects were where everything finally stuck, because a tutorial can lie to you but your own broken app cannot.</p>
+    <p>I started with YouTube, like most of us. Then I moved to online documentation, which felt like a foreign language at first and then, slowly, like a map. Along the way I had real people too: mentors who sat with me, looked at my screen, and said, “No, that is not what your code is doing.”</p>
 
-<h2>The bug reports I wish I had filed</h2>
+    <p>Mostly, though, it was commitment and discipline. JavaScript is frustrating, and motivation does not survive frustration. Showing up on the days you do not feel like it does. Projects were where everything finally stuck, because a tutorial can lie to you, but your own broken app cannot.</p>
 
-<p>Every JavaScript learner collects a private museum of mistakes. Here are five from mine, filed properly, as if I were reporting them to myself.</p>
+    <h2>Five bugs I will never forget</h2>
 
-<section class="bug" aria-labelledby="b1">
-  <header><span id="b1">The Two Equals Signs That Lied</span><small>Severity: embarrassing</small></header>
-  <div class="in">
-    <svg viewBox="0 0 400 110" role="img" aria-label="Two equals signs arguing with three equals signs">
-      <rect x="30" y="25" width="100" height="60" rx="12" fill="#F7DF1E" stroke="#1B1F3B" stroke-width="3"/>
-      <text x="80" y="66" text-anchor="middle" font-family="monospace" font-weight="700" font-size="30" fill="#1B1F3B">==</text>
-      <rect x="270" y="25" width="100" height="60" rx="12" fill="#2FBF8F" stroke="#1B1F3B" stroke-width="3"/>
-      <text x="320" y="66" text-anchor="middle" font-family="monospace" font-weight="700" font-size="30" fill="#1B1F3B">===</text>
-      <text x="200" y="52" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="13" fill="#1B1F3B">"5" and 5?</text>
-      <text x="200" y="70" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4A4F72">same thing, boss.</text>
-    </svg>
-<pre><span class="bad">"5" == 5</span>    <span class="c">// true  (JavaScript quietly converted the type)</span>
-<span class="ok">"5" === 5</span>   <span class="c">// false (different types, different things)</span></pre>
-    <dl>
-      <dt>Symptom</dt><dd>My if-statements passed when they had no business passing.</dd>
-      <dt>Cause</dt><dd>Loose equality converts types behind your back.</dd>
-      <dt>Fix</dt><dd>Use <code>===</code> by default and make type conversion something I choose, not something that happens to me.</dd>
-    </dl>
-  </div>
-</section>
+    <p>Every JavaScript learner keeps a private museum of mistakes. These are the exhibits from mine.</p>
 
-<section class="bug" aria-labelledby="b2">
-  <header><span id="b2">undefined Is Everywhere</span><small>Severity: daily</small></header>
-  <div class="in">
-    <svg viewBox="0 0 400 100" role="img" aria-label="Many speech bubbles all saying undefined">
-      <g font-family="monospace" font-weight="700" font-size="14" fill="#1B1F3B" stroke="#1B1F3B" stroke-width="2">
-        <rect x="14" y="22" width="108" height="34" rx="17" fill="#fff"/><rect x="146" y="40" width="108" height="34" rx="17" fill="#F7DF1E"/><rect x="278" y="18" width="108" height="34" rx="17" fill="#fff"/>
-      </g>
-      <g font-family="monospace" font-weight="700" font-size="14" fill="#1B1F3B" text-anchor="middle">
-        <text x="68" y="44">undefined</text><text x="200" y="62">undefined</text><text x="332" y="40">undefined</text>
-      </g>
-    </svg>
+    <h3>The two equals signs that lied</h3>
+    <p>My if-statements kept passing when they had no business passing. Loose equality quietly converts types behind your back, so a string and a number can be “equal”.</p>
+<pre><span class="bad">"5" == 5</span>    <span class="c">// true, JavaScript converted the type for me</span>
+<span class="ok">"5" === 5</span>   <span class="c">// false, different types, different things</span></pre>
+    <p class="fix">Lesson: use <code>===</code> by default. Make type conversion something I choose, not something that happens to me.</p>
+
+    <h3>undefined, everywhere</h3>
+    <p>A variable I was sure had a value kept answering “undefined”, and then crashed the whole script. I was reading data before it existed, or from the wrong place.</p>
 <pre>const user = {};
 console.log(user.name);        <span class="c">// undefined</span>
-console.log(user.name.first);  <span class="bad">// TypeError!</span></pre>
-    <dl>
-      <dt>Symptom</dt><dd>A variable I was sure had a value kept answering “undefined”, and then crashing the whole script.</dd>
-      <dt>Cause</dt><dd>I was reading data before it existed, or from the wrong place.</dd>
-      <dt>Fix</dt><dd><code>console.log</code> everything, then check the shape of the data before touching it.</dd>
-    </dl>
-  </div>
-</section>
+console.log(user.name.first);  <span class="bad">// TypeError</span></pre>
+    <p class="fix">Lesson: <code>console.log</code> the data first, and check its shape before touching it.</p>
 
-<section class="bug" aria-labelledby="b3">
-  <header><span id="b3">The Loop That Ate My Laptop</span><small>Severity: fan noise</small></header>
-  <div class="in">
-    <svg viewBox="0 0 400 110" role="img" aria-label="A laptop with swirling arrows and sweat drops">
-      <rect x="140" y="30" width="120" height="58" rx="8" fill="#1B1F3B"/>
-      <rect x="128" y="88" width="144" height="10" rx="5" fill="#1B1F3B"/>
-      <path d="M170 60 a18 18 0 1 1 18 18" fill="none" stroke="#F7DF1E" stroke-width="5" stroke-linecap="round"/>
-      <path d="M188 78 l-2 -9 l9 3z" fill="#F7DF1E"/>
-      <path d="M112 40 q-8 12 0 20 q8 -8 0 -20z" fill="#7BC4FF" stroke="#1B1F3B" stroke-width="2"/>
-      <path d="M290 36 q-8 12 0 20 q8 -8 0 -20z" fill="#7BC4FF" stroke="#1B1F3B" stroke-width="2"/>
-    </svg>
+    <h3>The loop that ate my laptop</h3>
+    <p>My browser tab froze and the fan started sounding like a small aircraft. The loop condition could never become false.</p>
 <pre><span class="bad">let i = 0;
 while (i &lt; 10) {
   console.log(i);
-  <span class="c">// forgot i++ ... forever</span>
+  <span class="c">// no i++ ... forever</span>
 }</span></pre>
-    <dl>
-      <dt>Symptom</dt><dd>Browser tab frozen, laptop fan sounding like a small aircraft.</dd>
-      <dt>Cause</dt><dd>The loop condition could never become false.</dd>
-      <dt>Fix</dt><dd>Always ask: what changes each round so this loop can end?</dd>
-    </dl>
-  </div>
-</section>
+    <p class="fix">Lesson: before running any loop, ask what changes each round so it can end.</p>
 
-<section class="bug" aria-labelledby="b4">
-  <header><span id="b4">var, Scope and the Three 3s</span><small>Severity: confusing</small></header>
-  <div class="in">
+    <svg class="sketch" viewBox="0 0 520 130" role="img" aria-label="A laptop with a circular arrow on the screen and sweat drops">
+      <g fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="190" y="20" width="140" height="80" rx="6"/>
+        <path d="M170 100 H350 L342 114 H178 Z"/>
+        <path d="M236 60 a24 24 0 1 1 24 24" stroke="#2d6a4f"/>
+        <path d="M260 84 l-3 -9 M260 84 l9 -3" stroke="#2d6a4f"/>
+        <path d="M160 40 q-7 10 0 18 q7 -8 0 -18 M362 30 q-7 10 0 18 q7 -8 0 -18" stroke="#555"/>
+      </g>
+    </svg>
+    <p class="cap">My laptop, trying its best.</p>
+
+    <h3>var, scope and the three 3s</h3>
+    <p>Every callback in my loop saw the same number. <code>var</code> shares one variable across the whole loop, while <code>let</code> gives each round its own.</p>
 <pre><span class="bad">for (var i = 0; i &lt; 3; i++) {
   setTimeout(() =&gt; console.log(i), 100);
-}
-<span class="c">// prints 3, 3, 3 (not 0, 1, 2)</span></span>
+}  <span class="c">// 3, 3, 3</span></span>
 
 <span class="ok">for (let i = 0; i &lt; 3; i++) {
   setTimeout(() =&gt; console.log(i), 100);
-}
-<span class="c">// prints 0, 1, 2</span></span></pre>
-    <dl>
-      <dt>Symptom</dt><dd>Every callback saw the same number.</dd>
-      <dt>Cause</dt><dd><code>var</code> shares one variable across the whole loop; <code>let</code> gives each round its own.</dd>
-      <dt>Fix</dt><dd>Stop using <code>var</code>. Learn scope properly instead of guessing.</dd>
-    </dl>
-  </div>
-</section>
+}  <span class="c">// 0, 1, 2</span></span></pre>
+    <p class="fix">Lesson: stop guessing about scope and learn how it actually works.</p>
 
-<section class="bug" aria-labelledby="b5">
-  <header><span id="b5">The Missing await</span><small>Severity: sneaky</small></header>
-  <div class="in">
-    <svg viewBox="0 0 400 100" role="img" aria-label="A package labelled Promise pending, not yet opened">
-      <rect x="150" y="26" width="100" height="60" rx="6" fill="#F7DF1E" stroke="#1B1F3B" stroke-width="3"/>
-      <path d="M150 46 H250 M200 26 V86" stroke="#1B1F3B" stroke-width="3"/>
-      <text x="200" y="104" text-anchor="middle" font-family="monospace" font-size="11" fill="#4A4F72">Promise { &lt;pending&gt; }</text>
-    </svg>
+    <h3>The missing await</h3>
+    <p>I was staring at <code>Promise { &lt;pending&gt; }</code> when I wanted my data. The function returned a promise and I never waited for it.</p>
 <pre><span class="bad">const data = fetchUsers();
 console.log(data);</span>   <span class="c">// Promise { &lt;pending&gt; }</span>
 
 <span class="ok">const data = await fetchUsers();
 console.log(data);</span>   <span class="c">// the actual users</span></pre>
-    <dl>
-      <dt>Symptom</dt><dd>I was staring at <code>Promise { &lt;pending&gt; }</code> when I wanted my data.</dd>
-      <dt>Cause</dt><dd>The function returned a promise and I never waited for it.</dd>
-      <dt>Fix</dt><dd><code>await</code> it, inside an <code>async</code> function.</dd>
-    </dl>
-  </div>
-</section>
+    <p class="fix">Lesson: <code>await</code> it, inside an <code>async</code> function.</p>
 
-<h2>The callback pyramid of doom</h2>
+    <h2>The callback pyramid</h2>
 
-<p>Then came callbacks. On paper the idea is simple: pass a function in, and it runs later. In practice, my code slowly drifted to the right of the screen until it looked like a staircase to nowhere. Every step depended on the one before it, every error needed its own handling, and I could no longer say with confidence what ran first.</p>
+    <p>Then came callbacks. The idea is simple: pass a function in, and it runs later. In practice, my code slowly drifted to the right until it looked like a staircase to nowhere. Every step depended on the one before it, every error needed its own handling, and I could no longer say with confidence what ran first.</p>
 
-<figure class="fig">
-  <svg viewBox="0 0 400 190" role="img" aria-label="Nested callbacks drawn as a staircase of boxes">
-    <g stroke="#1B1F3B" stroke-width="3">
-      <rect x="20" y="10" width="360" height="34" rx="8" fill="#E5484D"/>
-      <rect x="60" y="54" width="320" height="34" rx="8" fill="#F28B5C"/>
-      <rect x="100" y="98" width="280" height="34" rx="8" fill="#F7DF1E"/>
-      <rect x="140" y="142" width="240" height="34" rx="8" fill="#2FBF8F"/>
-    </g>
-    <g font-family="monospace" font-weight="700" font-size="13" fill="#1B1F3B">
-      <text x="34" y="32">getUser(function(user) {</text>
-      <text x="74" y="76">getPosts(user, function(posts) {</text>
-      <text x="114" y="120">getComments(posts, function(c) {</text>
-      <text x="154" y="164">...and so it goes</text>
-    </g>
-  </svg>
-  <figcaption>My code, drifting right.</figcaption>
-</figure>
+    <svg class="sketch" viewBox="0 0 520 190" role="img" aria-label="Nested callbacks drawn as a staircase of boxes moving right">
+      <g fill="none" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round">
+        <rect x="20" y="14" width="480" height="34" rx="3"/>
+        <rect x="60" y="58" width="440" height="34" rx="3"/>
+        <rect x="100" y="102" width="400" height="34" rx="3"/>
+        <rect x="140" y="146" width="360" height="30" rx="3" stroke="#2d6a4f"/>
+      </g>
+      <g font-family="JetBrains Mono, monospace" font-size="13" fill="#1a1a1a">
+        <text x="34" y="36">getUser(function (user) {</text>
+        <text x="74" y="80">getPosts(user, function (posts) {</text>
+        <text x="114" y="124">getComments(posts, function (c) {</text>
+        <text x="154" y="166" fill="#2d6a4f">...and it keeps going</text>
+      </g>
+    </svg>
 
-<h2>The breakthrough</h2>
+    <h2>The breakthrough</h2>
 
-<p>The first real click did not come from a video or a docs page. It came from a mentor, my CTO. Watching someone experienced slow down and trace what runs, and when, did more for me in one sitting than weeks of copying examples. Async code stopped being magic and became a question I could answer: <em>what am I waiting for, and what happens after it arrives?</em></p>
+    <p>The first real click did not come from a video or a documentation page. It came from a mentor, my CTO. Watching someone experienced slow down and trace what runs, and when, did more for me in one sitting than weeks of copying examples.</p>
 
-<p class="quote">Async code stopped being magic and became a question I could answer.</p>
+    <p class="pull">Async code stopped being magic and became a question I could answer: what am I waiting for, and what happens after it arrives?</p>
 
-<p>Once that mental model landed, async/await felt like someone had finally switched the lights on. Same logic as the pyramid, but written the way I think:</p>
+    <p>Once that mental model landed, async/await felt like someone had switched the lights on. Same logic as the pyramid, written the way I actually think:</p>
 
-<pre><span class="bad">// before: the pyramid
+<pre><span class="bad">// before
 getUser(id, (user) =&gt; {
   getPosts(user, (posts) =&gt; {
     render(posts);
   });
 });</span>
 
-<span class="ok">// after: reads top to bottom
+<span class="ok">// after
 async function showPosts(id) {
   const user  = await getUser(id);
   const posts = await getPosts(user);
   render(posts);
 }</span></pre>
 
-<h2>What I would tell my 2023 self</h2>
+    <h2>What I would tell my 2023 self</h2>
 
-<ul class="lessons">
-  <li><strong>Read the error message first.</strong> It is usually telling you exactly where to look.</li>
-  <li><strong>Build things, even ugly things.</strong> Projects teach what tutorials cannot.</li>
-  <li><strong>Find a mentor.</strong> One person tracing your code with you can save weeks.</li>
-  <li><strong>Be consistent, not heroic.</strong> Small daily practice beats occasional all-nighters.</li>
-  <li><strong>Make friends with <code>console.log</code>.</strong> And later, with the debugger.</li>
-  <li><strong>The frustration means you are learning.</strong> It is not evidence that you are not cut out for this.</li>
-</ul>
+    <ol class="lessons">
+      <li><b>Read the error message first.</b>It is usually telling you exactly where to look.</li>
+      <li><b>Build things, even ugly things.</b>Projects teach what tutorials cannot.</li>
+      <li><b>Find a mentor.</b>One person tracing your code with you can save weeks.</li>
+      <li><b>Be consistent, not heroic.</b>Small daily practice beats the occasional all-nighter.</li>
+      <li><b>Make friends with console.log.</b>And later, with the debugger.</li>
+      <li><b>Frustration means you are learning.</b>It is not proof that you are not cut out for this.</li>
+    </ol>
 
-<aside class="end">
-  <h2>Still learning, still debugging</h2>
-  <p>I am not done. New bugs arrive every week, and honestly I have made peace with that. If you are learning JavaScript right now, from a hostel room at FUNAAB or anywhere else, keep going. Your future self will laugh at today’s bugs the way I laugh at mine.</p>
-  <p><strong>What was your most embarrassing JavaScript bug?</strong> I would love to hear it.</p>
-</aside>
+    <h2>Still learning, still debugging</h2>
+    <p>I am not done. New bugs arrive every week, and I have made peace with that. If you are learning JavaScript right now, from a hostel room at FUNAAB or anywhere else, keep going. Your future self will laugh at today’s bugs the way I laugh at mine.</p>
+    <p class="end">What was your most embarrassing JavaScript bug? I would love to hear it.</p>
+  </article>
+</main>
 
-</article>
+<footer>
+  <p>© 2026 WamiriX. All rights reserved.</p>
+  <p>Built with ❤️</p>
+</footer>
 
-<footer>Written by WamiriX</footer>
 </div>
 </body>
 </html>
