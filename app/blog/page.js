@@ -34,7 +34,7 @@ const posts = [
       "From confusing callbacks to finally understanding async/await — an honest account of learning JavaScript as a self-driven computer science student in Nigeria.",
     date: "November 8,2026",
     readTime: "6 min read",
-    link: "/posts/js-journey.html",
+    link: "/posts/js-journey",
   },
   {
     id: 4,
