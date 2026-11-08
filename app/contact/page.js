@@ -424,7 +424,7 @@ export default function Contact() {
         {/* FOOTER */}
         <footer>
           <p>© {new Date().getFullYear()} WamiriX. All rights reserved.</p>
-          <p>Built with Next.js</p>
+          <p>Built with ❤️</p>
         </footer>
       </div>
     </>

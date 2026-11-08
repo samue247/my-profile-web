@@ -32,9 +32,9 @@ const posts = [
     title: "My Journey Learning JavaScript: Mistakes, Breakthroughs and Lessons",
     excerpt:
       "From confusing callbacks to finally understanding async/await — an honest account of learning JavaScript as a self-driven computer science student in Nigeria.",
-    date: "Coming Soon",
+    date: "November 8,2026",
     readTime: "6 min read",
-    link: "#",
+    link: "/posts/js-journey.html",
   },
   {
     id: 4,
@@ -93,8 +93,8 @@ export default function Blog() {
           color: #1a1a1a;
           background: #f7f6f4;
           body {
-  padding-top: 70px; /* match your navbar height */
-}
+          padding-top: 70px; /* match your navbar height */
+          }
           justify-content: space-between;
           align-items: center;
           padding: 2rem 4rem;
@@ -378,7 +378,7 @@ export default function Blog() {
         {/* FOOTER */}
         <footer>
           <p>© {new Date().getFullYear()} WamiriX. All rights reserved.</p>
-          <p>Built with Next.js</p>
+          <p>Built with ❤️</p>
         </footer>
       </div>
     </>
